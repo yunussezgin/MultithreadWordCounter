@@ -1,0 +1,1 @@
+Kelime & Cümle Sayacı
