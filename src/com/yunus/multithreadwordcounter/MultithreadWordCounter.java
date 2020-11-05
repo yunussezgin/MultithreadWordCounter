@@ -9,22 +9,28 @@ import java.util.List;
 
 public class MultithreadWordCounter {
 
-	public static void main(final String[] args) {
+	public static String fileDirectory;
+	
+	
+	public static void main(final String[] args) throws InterruptedException {
 
 		for (int i = 0; i < args.length; i++) {
 			System.out.println(args[i]);
 		}
 		
-		try {
-			List<String> lineList = readFile(args[0]);
-			
-			for(String line : lineList) {
-				System.out.println(line);
-			}
-			
-		} catch (IOException e) {
-			System.out.println("Dosya Okunurken Hata Olustu!");
+		FileReaderThread fileReaderThread = new FileReaderThread(args[0]);
+		Thread mainThread = new Thread(fileReaderThread);
+		mainThread.run();
+	    mainThread.join();
+		
+		
+		List<String> lineList = fileReaderThread.getLineList();
+		for (String line : lineList) {
+			System.out.println(line);
 		}
+		
+		System.out.println(fileReaderThread.getSentenceCount());
+		System.out.println(fileReaderThread.getAverageWordCount());
 
 	}
 	
