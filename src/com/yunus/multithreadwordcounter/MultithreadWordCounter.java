@@ -48,6 +48,8 @@ public class MultithreadWordCounter {
 		// Writes sentence count and average word of sentences
 		System.out.println("Sentence Count: " + fileReaderHelper.getSentenceCount());
 		System.out.println("Avg. Word Count: " + fileReaderHelper.getAverageWordCount());
+		
+		System.out.print("\n");
 
 		// 
 		Map<String, Integer> sortedWordList = sortByValue(wordList);
