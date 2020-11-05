@@ -8,20 +8,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class FileReaderThread extends Thread {
-	
+public class FileReaderHelper {
+
 	private String fileDirectory;
 	private List<String> sentenceList;
 	private int sentenceCount;
 	private Double averageWordCount;
-	
-	public FileReaderThread(String fileDirectory) {
+
+	public FileReaderHelper(String fileDirectory) {
 		this.fileDirectory = fileDirectory;
 		this.sentenceList = new ArrayList<String>();
 	}
 
-	@Override
-	public void run() {
+	public void execute() {
 		try {
 			File file = new File(fileDirectory);
 
@@ -34,16 +33,17 @@ public class FileReaderThread extends Thread {
 			}
 			message = message.trim();
 
-			for (String sentence : Arrays.asList(message.split("[!?.:]+")))
+			for (String sentence : Arrays.asList(message.split("[!?.:]+"))) {
 				sentenceList.add(sentence.trim());
-			
-			List<Integer> wordCountList = new ArrayList<Integer>();
-			for(String sentence : sentenceList)
-				wordCountList.add(sentence.split("\\s+").length);
+			}
 
-			
+			List<Integer> wordCountList = new ArrayList<Integer>();
+			for (String sentence : sentenceList) {
+				wordCountList.add(sentence.split("\\s+").length);
+			}
+
 			sentenceCount = sentenceList.size();
-			
+
 			averageWordCount = wordCountList.stream().mapToInt(val -> val).average().orElse(0.0);
 
 			bufferedReader.close();
@@ -64,5 +64,5 @@ public class FileReaderThread extends Thread {
 	public Double getAverageWordCount() {
 		return averageWordCount;
 	}
-	
+
 }
