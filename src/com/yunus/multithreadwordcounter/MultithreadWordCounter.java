@@ -39,22 +39,22 @@ public class MultithreadWordCounter {
 				sentenceThreadList[j].run();
 			}
 
-			// Waited thread
+			// Wait thread
 			for (int k = 0; k < threadCount; k++) {
 				sentenceThreadList[k].join();
 			}
 		}
 
-		// Writes sentence count and average word of sentences
+		// Write sentence count and average word of sentences
 		System.out.println("Sentence Count: " + fileReaderHelper.getSentenceCount());
 		System.out.println("Avg. Word Count: " + fileReaderHelper.getAverageWordCount());
 		
 		System.out.print("\n");
 
-		// 
+		// Sorted map
 		Map<String, Integer> sortedWordList = sortByValue(wordList);
 		
-		// Writes word list and count
+		// Write word list and count
 		for (Entry<String, Integer> entry : sortedWordList.entrySet()) {
 			System.out.println(entry.getKey() + " " + entry.getValue());
 		}
